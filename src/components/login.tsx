@@ -1,13 +1,23 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import { verifyUser } from '@/components/data';
+import { useRouter } from 'next/navigation';
 
 export default function LoginForm() {
+  const router = useRouter();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState(false);
 
-  const handleLogin = () => {
-    console.log("Username:", username);
-    console.log("Password:", password);
+  const handleLogin = async() => {
+    const user = await verifyUser(username, password);
+
+    if (user) {
+      router.push('./chat');
+    } else {
+      setLoginError(true);
+    }
   };
 
   return (
@@ -46,8 +56,13 @@ export default function LoginForm() {
             >
             Login
             </button>
-        </div>
+        </div> 
       </form>
+      {loginError && (
+        <p className="text-red-500 text-center">
+          Incorrect username or password
+        </p>
+      )}
       <p className="text-gray-700 text-center">No account? <Link className="text-green-600 hover:text-green-700 text-decoration-line: underline" href="/signup">Create one</Link></p>
     </div>
   );

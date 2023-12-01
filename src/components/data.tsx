@@ -8,10 +8,23 @@ export async function addUser(username: string, password: string) {
   
     const existingUser = await users.findOne({ username });
   
-    if (existingUser) {
-      throw new Error('Username already exists');
+    const result = await users.insertOne({ username, password });
+    return result;
+  }
+
+  export async function verifyUser(username: string, password: string) {
+    const db = await connectToDatabase();
+    const users = db.collection('users');
+  
+    const user = await users.findOne({ username });
+  
+    if (!user) {
+      return null; 
+    }
+    
+    if (user.password === password) {
+      return user; 
     }
   
-    const result = await users.insertOne({ username, password });
-    return result.insertedId;
+    return null; 
   }

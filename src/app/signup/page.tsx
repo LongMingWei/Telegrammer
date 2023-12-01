@@ -3,13 +3,28 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { addUser } from '@/components/data';
+import { useRouter } from 'next/navigation';
 
 export default function SignUp() {
+  const router = useRouter();
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState(false);
 
-  const handleLogin = () => {
-    addUser(username, password)
+  const handleLogin = async() => {
+    try {
+      const result = await addUser(username, password);
+
+      if (result && result.insertedId) {
+        router.push('./chat');
+      } else {
+        setLoginError(true);
+      }
+    } catch (error) {
+      console.error('Error during sign-up:', error);
+      setLoginError(true);
+    }
   };
 
   return (
@@ -51,6 +66,11 @@ export default function SignUp() {
             </button>
         </div>
       </form>
+      {loginError && (
+        <p className="text-red-500 text-center">
+          Username already exists
+        </p>
+      )}
       <div className="text-center">
         <Link className="text-green-600 hover:text-green-700 text-decoration-line: underline" href='/'>Go Back to Main Page</Link>
       </div>
