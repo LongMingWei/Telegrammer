@@ -1,3 +1,5 @@
+'use server'
+
 import { connectToDatabase } from '@/components/mongo';
 
 export async function addUser(username: string, password: string) {
