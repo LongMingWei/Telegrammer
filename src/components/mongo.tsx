@@ -2,7 +2,7 @@
 
 import { MongoClient } from 'mongodb';
 
-const uri = process.env.MONGODB_URI;
+const uri = JSON.parse(JSON.stringify(process.env.MONGODB_URI));
 
 const client = new MongoClient(uri);
 
