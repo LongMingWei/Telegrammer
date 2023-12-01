@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image';
-import { roboto } from '@/app/layout';
+import { roboto } from '@/components/fonts';
 import LoginForm from '@/components/login';
 
 export default function Home() {

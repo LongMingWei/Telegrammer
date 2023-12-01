@@ -1,13 +1,6 @@
 import type { Metadata } from 'next'
-import { Inter, Roboto } from 'next/font/google'
+import { roboto } from '@/components/fonts'
 import './globals.css'
-
-export const inter = Inter({ subsets: ['latin'] });
- 
-export const roboto = Roboto({
-  weight: ['300', '400'],
-  subsets: ['latin'],
-});
 
 export const metadata: Metadata = {
   title: 'Telegrammer',
@@ -21,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={roboto.className}>{children}</body>
+      <body className={`${roboto.className} antialiased`}>{children}</body>
     </html>
   )
 }
