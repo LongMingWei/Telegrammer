@@ -48,7 +48,7 @@ export default function LoginForm() {
             </button>
         </div>
       </form>
-      <p className="text-gray-700 text-center">No account? <Link className="text-green-600 hover:text-green-700 text-decoration-line: underline" href="/chat">Create one</Link></p>
+      <p className="text-gray-700 text-center">No account? <Link className="text-green-600 hover:text-green-700 text-decoration-line: underline" href="/signup">Create one</Link></p>
     </div>
   );
 };

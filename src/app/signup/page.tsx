@@ -2,14 +2,14 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { addUser } from '@/components/data';
 
 export default function SignUp() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    console.log('Username:', username);
-    console.log('Password:', password);
+    addUser(username, password)
   };
 
   return (
