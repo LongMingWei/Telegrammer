@@ -28,3 +28,17 @@ export async function addUser(username: string, password: string) {
   
     return null; 
   }
+
+  export async function changePassword(username: string, password: string) {
+    const db = await connectToDatabase();
+    const users = db.collection('users');
+  
+    const user = await users.findOne({ username });
+  
+    if (!user) {
+      return null; 
+    }
+    
+    await users.updateOne({username}, {$set: {password} })
+    return user; 
+  }

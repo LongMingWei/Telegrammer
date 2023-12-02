@@ -1,29 +1,36 @@
-import React, { useState } from "react";
-import Link from "next/link";
-import { verifyUser } from '@/components/data';
+'use client'
+
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { changePassword } from '@/components/data';
 import { useRouter } from 'next/navigation';
 
-export default function LoginForm() {
+export default function Change() {
   const router = useRouter();
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState(0);
 
   const handleLogin = async() => {
-    const user = await verifyUser(username, password);
+    try {
+      const result = await changePassword(username, password);
 
-    if (user) {
-      setLoginError(1);
-      router.push('./chat');
-    } else {
+      if (result) {
+        setLoginError(1);
+      } else {
+        setLoginError(2);
+      }
+    } catch (error) {
+      console.error('Error during sign-up:', error);
       setLoginError(2);
     }
   };
 
   return (
+    <main className="flex min-h-screen flex-col items-center justify-between p-10 bg-white">
     <div className="p-8"> 
-      <h2 className="text-3xl font-bold mb-6 text-green-600 text-center">Log in to Telegrammer</h2> 
+      <h2 className="text-3xl font-bold mb-6 text-green-600 text-center">Change Password</h2> 
       <form className="max-w-md mx-auto">
         <div className="mb-6">
           <label htmlFor="username" className="block text-sm font-medium text-gray-700">
@@ -39,8 +46,7 @@ export default function LoginForm() {
         </div>
         <div className="mb-6">
           <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-            Password 
-            <Link className="float-right text-green-600 hover:text-green-700 text-decoration-line: underline" href="/change">Forgot password</Link>
+            New Password
           </label>
           <input
             type="password"
@@ -56,22 +62,25 @@ export default function LoginForm() {
             className="bg-green-500 text-white justify-center p-3 rounded-md hover:bg-green-600"
             onClick={handleLogin}
             >
-            Login
+            Change Password
             </button>
-        </div> 
+        </div>
       </form>
       {loginError == 1 && (
         <p className="text-green-500 text-center">
-          Logging in...
+          Password changed
         </p>
       )}
       {loginError == 2 && (
         <p className="text-red-500 text-center">
-          Incorrect username or password
+          Username does not exist
         </p>
       )}
-      <p className="text-gray-700 text-center">No account? <Link className="text-green-600 hover:text-green-700 text-decoration-line: underline" href="/signup">Create one</Link></p>
+      <div className="text-center">
+        <Link className="text-green-600 hover:text-green-700 text-decoration-line: underline" href='/'>Go Back to Main Page</Link>
+      </div>
     </div>
+    </main>
   );
 };
 

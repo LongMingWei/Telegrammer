@@ -10,20 +10,21 @@ export default function SignUp() {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [loginError, setLoginError] = useState(false);
+  const [loginError, setLoginError] = useState(0);
 
   const handleLogin = async() => {
     try {
       const result = await addUser(username, password);
 
       if (result && result.insertedId) {
+        setLoginError(1);
         router.push('./chat');
       } else {
-        setLoginError(true);
+        setLoginError(2);
       }
     } catch (error) {
       console.error('Error during sign-up:', error);
-      setLoginError(true);
+      setLoginError(2);
     }
   };
 
@@ -66,7 +67,12 @@ export default function SignUp() {
             </button>
         </div>
       </form>
-      {loginError && (
+      {loginError == 1 && (
+        <p className="text-green-500 text-center">
+          Account created
+        </p>
+      )}
+      {loginError == 2 && (
         <p className="text-red-500 text-center">
           Username already exists
         </p>
