@@ -3,10 +3,13 @@
 import { connectToDatabase } from '@/components/mongo';
 
 export async function addUser(username: string, password: string) {
+    if (username === "" || password === "") return null;
+
     const db = await connectToDatabase();
     const users = db.collection('users');
   
     const existingUser = await users.findOne({ username });
+    if (existingUser) return null;
   
     const result = await users.insertOne({ username, password });
     return result;

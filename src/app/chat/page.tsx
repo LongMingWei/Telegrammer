@@ -1,9 +1,11 @@
+'use client'
+
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 export default function Chat() {
-  // const router = useRouter();
-  const username = 'Egoist';
+  const router = useRouter();
+  const username = router.query;
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-10 bg-white">

@@ -11,12 +11,16 @@ export default function LoginForm() {
   const [loginError, setLoginError] = useState(0);
 
   const handleLogin = async() => {
+    setLoginError(1);
     const user = await verifyUser(username, password);
 
-    if (user) {
-      setLoginError(1);
+    if (user && username != "" && password != "") {
       router.push('./chat');
-    } else {
+    } 
+    else if (username === "" || password === "") {
+      setLoginError(3);
+    }
+    else {
       setLoginError(2);
     }
   };
@@ -32,6 +36,7 @@ export default function LoginForm() {
           <input
             type="text"
             id="username"
+            required
             className="mt-1 p-3 border border-black rounded-md w-full bg-gray-100 text-gray-700"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -45,6 +50,7 @@ export default function LoginForm() {
           <input
             type="password"
             id="password"
+            required
             className="mt-1 p-3 border border-black rounded-md w-full bg-gray-100 text-gray-700"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -68,6 +74,11 @@ export default function LoginForm() {
       {loginError == 2 && (
         <p className="text-red-500 text-center">
           Incorrect username or password
+        </p>
+      )}
+      {loginError == 3 && (
+        <p className="text-red-500 text-center">
+          Username or password not filled
         </p>
       )}
       <p className="text-gray-700 text-center">No account? <Link className="text-green-600 hover:text-green-700 text-decoration-line: underline" href="/signup">Create one</Link></p>

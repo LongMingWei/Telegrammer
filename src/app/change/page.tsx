@@ -16,9 +16,13 @@ export default function Change() {
     try {
       const result = await changePassword(username, password);
 
-      if (result) {
+      if (result && username != "" && password != "") {
         setLoginError(1);
-      } else {
+      } 
+      else if (username === "" || password === "") {
+        setLoginError(3);
+      }
+      else {
         setLoginError(2);
       }
     } catch (error) {
@@ -39,6 +43,7 @@ export default function Change() {
           <input
             type="text"
             id="username"
+            required
             className="mt-1 p-3 border border-black rounded-md w-full bg-gray-100 text-gray-700"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -51,6 +56,7 @@ export default function Change() {
           <input
             type="password"
             id="password"
+            required
             className="mt-1 p-3 border border-black rounded-md w-full bg-gray-100 text-gray-700"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -74,6 +80,11 @@ export default function Change() {
       {loginError == 2 && (
         <p className="text-red-500 text-center">
           Username does not exist
+        </p>
+      )}
+      {loginError == 3 && (
+        <p className="text-red-500 text-center">
+          Username or password not filled
         </p>
       )}
       <div className="text-center">
