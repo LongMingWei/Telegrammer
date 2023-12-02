@@ -40,7 +40,7 @@ export const { auth, signIn, signOut } = NextAuth({
           if (!user) return null;
           const passwordsMatch = password.trim() === user.password.trim()
           console.log(name, password)
-          if (passwordsMatch) return { _id: user._id, email: user.email, name: user.name };
+          if (passwordsMatch) return { _id: "", email: "", name: user.name };
         }
  
         console.log('Invalid');
