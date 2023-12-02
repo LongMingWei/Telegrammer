@@ -15,7 +15,7 @@ export default function LoginForm() {
     const user = await verifyUser(username, password);
 
     if (user && username != "" && password != "") {
-      router.push('./chat');
+      router.push(`./chat/${encodeURIComponent(username)}`);
     } 
     else if (username === "" || password === "") {
       setLoginError(3);

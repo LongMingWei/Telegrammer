@@ -18,7 +18,7 @@ export default function SignUp() {
 
       if (result && result.insertedId && username != "" && password != "") {
         setLoginError(1);
-        router.push('./chat');
+        router.push(`./chat/${encodeURIComponent(username)}`);
       } 
       else if (username === "" || password === "") {
         setLoginError(3);
