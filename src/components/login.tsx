@@ -15,13 +15,13 @@ export default function LoginForm() {
       <h2 className="text-3xl font-bold mb-6 text-green-600 text-center">Log in to Telegrammer</h2> 
       <form action={dispatch} className="max-w-md mx-auto">
         <div className="mb-6">
-          <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
             Username
           </label>
           <input
             type="text"
-            id="username"
-            name="username"
+            id="name"
+            name="name"
             required
             className="mt-1 p-3 border border-black rounded-md w-full bg-gray-100 text-gray-700"
           />

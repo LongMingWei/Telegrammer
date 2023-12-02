@@ -8,11 +8,12 @@ import type { User } from './definitions';
 import bcrypt from 'bcrypt';
 import { connectToDatabase } from '@/components/mongo';
  
-async function getUser(username: string) {
+async function getUser(name: string) {
   try {
     const db = await connectToDatabase();
     const users = db.collection('users');
-    const user = await users.findOne({ username }, { projection: { username: 1, password: 1, _id: 0 } });
+    const user = await users.findOne({ name }, { projection: { name: 1, password: 1, _id: 0 } });
+    console.log(user)
     if (user) return user;
   } catch (error) {
     console.error('Failed to fetch user:', error);
@@ -27,19 +28,19 @@ export const { auth, signIn, signOut } = NextAuth({
     Credentials({
       async authorize(credentials) {
         const parsedCredentials = z
-          .object({ username: z.string(), password: z.string() })
+          .object({ name: z.string(), password: z.string() })
           .safeParse(credentials);
         
         if (!parsedCredentials.success) {
           console.error(parsedCredentials.error.errors);
         }
         if (parsedCredentials.success) {
-          const { username, password } = parsedCredentials.data;
-          const user = await getUser(username);
+          const { name, password } = parsedCredentials.data;
+          const user = await getUser(name);
           if (!user) return null;
           const passwordsMatch = password.trim() === user.password.trim()
- 
-          if (passwordsMatch) return user.username;
+          console.log(name, password)
+          if (passwordsMatch) return { _id: user._id, email: user.email, name: user.name };
         }
  
         console.log('Invalid');

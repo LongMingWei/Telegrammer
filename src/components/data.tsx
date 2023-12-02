@@ -5,16 +5,16 @@ import { signIn } from '../../auth';
 import { AuthError } from 'next-auth';
 import type { User } from '../../definitions';
 
-export async function addUser(username: string, password: string) {
-    if (username === "" || password === "") return null;
+export async function addUser(name: string, password: string) {
+    if (name === "" || password === "") return null;
 
     const db = await connectToDatabase();
     const users = db.collection('users');
   
-    const existingUser = await users.findOne({ username });
+    const existingUser = await users.findOne({ name });
     if (existingUser) return null;
   
-    const result = await users.insertOne({ username, password });
+    const result = await users.insertOne({ name, password });
     return result;
   }
 
@@ -35,17 +35,17 @@ export async function addUser(username: string, password: string) {
     return null; 
   }
 
-  export async function changePassword(username: string, password: string) {
+  export async function changePassword(name: string, password: string) {
     const db = await connectToDatabase();
     const users = db.collection('users');
   
-    const user = await users.findOne({ username });
+    const user = await users.findOne({ name });
   
     if (!user) {
       return null; 
     }
     
-    await users.updateOne({username}, {$set: {password} })
+    await users.updateOne({name}, {$set: {password} })
     return user; 
   }
 
@@ -54,8 +54,7 @@ export async function addUser(username: string, password: string) {
     formData: FormData,
   ) {
     try {
-      const name = await signIn('credentials', formData);
-      return name;
+      await signIn('credentials', formData);
     } catch (error) {
       if (error instanceof AuthError) {
         switch (error.type) {
