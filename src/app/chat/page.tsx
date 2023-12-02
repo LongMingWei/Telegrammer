@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 
 export default function Chat() {
   const router = useRouter();
-  const username = router.query;
+  const username = "Egoist";
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-10 bg-white">
