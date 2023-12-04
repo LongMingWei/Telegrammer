@@ -7,6 +7,7 @@ import type { User } from '../../definitions';
 import { unstable_noStore as noStore } from 'next/cache';
 
 export async function addUser(name: string, password: string) {
+    noStore();
     if (name === "" || password === "") return null;
 
     const db = await connectToDatabase();
@@ -20,6 +21,7 @@ export async function addUser(name: string, password: string) {
   }
 
   export async function changePassword(name: string, old: string, password: string) {
+    noStore();
     const db = await connectToDatabase();
     const users = db.collection('users');
   
@@ -32,6 +34,7 @@ export async function addUser(name: string, password: string) {
   }
 
   export async function sendMessage(sender: string, receiver: string, message: string) {
+    noStore();
     const db = await connectToDatabase();
     const users = db.collection('users');
   
@@ -63,7 +66,8 @@ export async function addUser(name: string, password: string) {
     return true; 
   }
 
-  export async function getMessages( username: string, contact: string) {
+  export async function getMessages( username: string, contact: string ) {
+    noStore();
     const db = await connectToDatabase();
     const users = db.collection('users');
 
@@ -86,6 +90,54 @@ export async function addUser(name: string, password: string) {
     
     const allMessages = await Promise.all(messages);
     return allMessages;
+  }
+
+  export async function getContacts( username: string ) {
+    noStore();
+    const db = await connectToDatabase();
+    const users = db.collection('users');
+
+      const pipeline = [
+        {
+          $match: {
+            name: username,
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            contacts: { $objectToArray: "$chat" }, 
+          },
+        },
+        {
+          $unwind: "$contacts",
+        },
+        {
+          $group: {
+            _id: "$contacts.k", 
+            latestMessage: { $last: { $last: "$contacts.v.message" } }, 
+          },
+        },
+        {
+          $project: {
+            contactName: "$_id",
+            latestMessage: 1,
+            _id: 0,
+          },
+        },
+      ];
+
+    const result = await users.aggregate(pipeline).toArray();
+    return result;
+  }
+
+  export async function getUsers() {
+    noStore();
+    const db = await connectToDatabase();
+    const users = db.collection('users');
+
+    const allUsers = await users.find().project({name: 1, _id: 0}).toArray();
+    return allUsers;
   }
 
   export async function authenticate(

@@ -32,8 +32,8 @@ export default function Change(props: { name: string; }) {
   };
 
   return (
-      <div className="flex min-h-screen flex-col items-center justify-between p-5 bg-white">
-        <div className="p-8">
+      <div className="flex flex-col items-center justify-between bg-white">
+        <div className="pb-10">
           <h2 className="text-3xl font-bold mb-6 text-green-600 text-center">Change Password</h2>
           <form className="max-w-md mx-auto">
             <div className="mb-6">
