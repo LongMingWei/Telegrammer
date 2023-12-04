@@ -4,7 +4,6 @@ import { getUsers } from '@/components/data'
 import React, { useState, useEffect } from 'react';
 
 function Users(props) {
-    console.log(props.key)
     return (<div className='relative p-4 max-w-xs mx-auto border-black hover:bg-lime-300 text-green-600 rounded-lg text-left'>
         <h1 className='font-bold'>{props.name}</h1>
     </div>)
@@ -44,7 +43,7 @@ export default function UserData({ setContact }) {
         </div>
       
           {allUsers.map((user, index) => (
-            <button onClick={() => setContact(user.name)}><Users key={index} name={user.name} /></button>
+            <button key={index} onClick={() => setContact(user.name)}><Users key={index} name={user.name} /></button>
           ))}
         </div>
       );      

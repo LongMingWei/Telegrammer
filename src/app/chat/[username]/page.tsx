@@ -9,7 +9,6 @@ import { sendMessage, getMessages, getContacts } from '@/components/data'
 import UserData from '@/components/users'
 
 function SpeechBubble(props) {
-  console.log(props.key)
   return (<div className='relative p-4 max-w-xs mx-auto mt-4 bg-lime-600 text-white rounded-lg'>
       <h1>{props.message}</h1>
       <p className='text-xs'>{props.time}</p>
@@ -17,7 +16,6 @@ function SpeechBubble(props) {
 }
 
 function Contact(props) {
-  console.log(props.key)
   return (<div className='relative p-4 w-80 mx-auto border-black bg-lime-700 hover:bg-lime-600 text-white rounded-lg text-left'>
       <h1 className='font-bold'>{props.contact}</h1>
       <p className='text-xs'>{props.latestMessage}</p>
@@ -126,7 +124,7 @@ export default function Chat({ params }: { params: { username: string } }) {
 </div>
 
 {allContacts.map((contacter, index) => (
-  <button onClick={() => setContact(contacter.contactName)}><Contact key={index} latestMessage={contacter.latestMessage} contact={contacter.contactName} /></button>
+  <button key={index} onClick={() => setContact(contacter.contactName)}><Contact key={index} latestMessage={contacter.latestMessage} contact={contacter.contactName} /></button>
 ))}
 
 {allMessages.map((msg, index) => (
