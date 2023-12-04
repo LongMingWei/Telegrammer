@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { roboto } from '@/components/fonts'
 import './globals.css'
+import PrelineScript from "@/components/preline";
 
 export const metadata: Metadata = {
   title: 'Telegrammer',
@@ -15,6 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto.className} antialiased`}>{children}</body>
+      <PrelineScript />
     </html>
   )
 }

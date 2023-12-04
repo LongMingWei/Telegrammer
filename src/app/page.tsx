@@ -11,7 +11,7 @@ export default function Home() {
         <Image
           className="relative drop-shadow-[0_0_0.3rem_#ffffff70] rounded-full w-40 h-40 mr-6"
           src="/download.jfif"
-          alt="Next.js Logo"
+          alt="Paper Airplane"
           width={180}
           height={37}
           priority

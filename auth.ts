@@ -13,7 +13,6 @@ async function getUser(name: string) {
     const db = await connectToDatabase();
     const users = db.collection('users');
     const user = await users.findOne({ name }, { projection: { name: 1, password: 1, _id: 0 } });
-    console.log(user)
     if (user) return user;
   } catch (error) {
     console.error('Failed to fetch user:', error);
@@ -39,7 +38,6 @@ export const { auth, signIn, signOut } = NextAuth({
           const user = await getUser(name);
           if (!user) return null;
           const passwordsMatch = password.trim() === user.password.trim()
-          console.log(name, password)
           if (passwordsMatch) return { _id: "", email: "", name: user.name };
         }
  
