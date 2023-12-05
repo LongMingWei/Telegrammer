@@ -43,7 +43,7 @@ export async function addUser(name: string, password: string) {
     
     const sentMessage = {
       message: message,
-      time: (new Date().getHours() < 10 ? '0' : '') + new Date().getHours() + ":" + (new Date().getMinutes() < 10 ? '0' : '') + new Date().getMinutes() + ", " + new Date().getDate() + "/" + (new Date().getMonth()+1) + "/" + new Date().getFullYear(), 
+      time: new Date(), 
       status: 'sent', 
     };
 
@@ -54,7 +54,7 @@ export async function addUser(name: string, password: string) {
 
     const receivedMessage = {
       message: message,
-      time: (new Date().getHours() < 10 ? '0' : '') + new Date().getHours() + ":" + (new Date().getMinutes() < 10 ? '0' : '') + new Date().getMinutes() + ", " + new Date().getDate() + "/" + (new Date().getMonth()+1) + "/" + new Date().getFullYear(), 
+      time: new Date(), 
       status: 'received', 
     };
     
@@ -116,7 +116,13 @@ export async function addUser(name: string, password: string) {
           $group: {
             _id: "$contacts.k", 
             latestMessage: { $last: { $last: "$contacts.v.message" } }, 
+            time: { $last: { $last: "$contacts.v.time" } }
           },
+        },
+        {
+          $sort: {
+            time: -1
+          }
         },
         {
           $project: {
@@ -124,10 +130,11 @@ export async function addUser(name: string, password: string) {
             latestMessage: 1,
             _id: 0,
           },
-        },
+        }
       ];
 
     const result = await users.aggregate(pipeline).toArray();
+    console.log(result)
     return result;
   }
 

@@ -6,7 +6,7 @@ import { addUser } from '@/components/data';
 import { useRouter } from 'next/navigation';
 
 export default function SignUp() {
-  const router = useRouter();
+  // const router = useRouter();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -18,7 +18,7 @@ export default function SignUp() {
 
       if (result && result.insertedId && username != "" && password != "") {
         setLoginError(1);
-        router.push(`./chat/${encodeURIComponent(username)}`);
+        // router.push(`./chat/${encodeURIComponent(username)}`);
       } 
       else if (username === "" || password === "") {
         setLoginError(3);

@@ -26,15 +26,15 @@ export default function Chat({ params }: { params: { username: string } }) {
   const username = params.username;
   const [message, setMessage] = useState('');
   const [contact, setContact] = useState('');
-  const [allMessages, setAllMessages] = useState<{ message: string; time: string; status: string }[]>([]);
+  const [allMessages, setAllMessages] = useState<{ message: string; time: Date; status: string }[]>([]);
   const [allContacts, setAllContacts] = useState<{ contactName: string; latestMessage: string }[]>([]);
   
   async function Send() {
     if (message != "" && contact != "") {
       sendMessage(username, contact, message);
       setMessage('');
-      const messages = await getMessages(username, contact);
-      setAllMessages(messages);
+      // const messages = await getMessages(username, contact);
+      // setAllMessages(messages);
     }
   }
 
@@ -53,7 +53,7 @@ export default function Chat({ params }: { params: { username: string } }) {
 
     fetchData();
     fetchContactData();
-  }, [username, contact, allContacts]);
+  }, [contact, allContacts]);
 
   return (
     <main className="flex min-h-screen flex-col items-center p-10 bg-white">
@@ -128,7 +128,7 @@ export default function Chat({ params }: { params: { username: string } }) {
 ))}
 
 {allMessages.map((msg, index) => (
-  <SpeechBubble key={index} message={msg.message} time={msg.time} status={msg.status} />
+  <SpeechBubble key={index} message={msg.message} time={(msg.time.getHours() < 10 ? '0' : '') + msg.time.getHours() + ":" + (msg.time.getMinutes() < 10 ? '0' : '') + msg.time.getMinutes() + ", " + msg.time.getDate() + "/" + (msg.time.getMonth()+1) + "/" + msg.time.getFullYear()} status={msg.status} />
 ))}
 
 </main>
