@@ -9,11 +9,10 @@ function Users(props) {
     </div>)
   }
 
-export default function UserData({ setContact, username1 }) {
+export default function UserData({ setContact, username }) {
     const [allUsers, setAllUsers] = useState<{ name: string }[]>([]);;
     const [searchQuery, setSearchQuery] = useState('');
     const [checked, setChecked] = useState(false);
-    const username = username1
 
     useEffect(() => {
         const fetchUserData = async () => {
