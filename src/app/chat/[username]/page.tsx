@@ -7,18 +7,32 @@ import Change from '@/components/change'
 import React, { useState, useEffect, useRef } from 'react';
 import { sendMessage, getMessages, getContacts } from '@/components/data'
 import UserData from '@/components/users'
+import clsx from 'clsx';
 
 function SpeechBubble(props) {
-  return (<div className='relative p-4 max-w-xs mx-auto mt-4 bg-lime-600 text-white rounded-lg'>
+  const isSent = props.status === 'sent';
+  const isReceived = props.status === 'received';
+
+  return (
+    <div
+      className={clsx(
+        'relative p-4 w-72 mt-4 rounded-lg break-words',
+        {
+          'bg-lime-600 text-white mr-auto': isReceived,
+          'bg-green-500 text-white ml-auto': isSent,
+        }
+      )}
+    >
       <h1>{props.message}</h1>
       <p className='text-xs'>{props.time}</p>
-  </div>)
+    </div>
+  );
 }
 
 function Contact(props) {
   return (<div className='relative p-4 w-80 mx-auto mb-2 border border-black bg-lime-700 hover:bg-lime-600 text-white rounded-lg text-left'>
       <h1 className='font-bold'>{props.contact}</h1>
-      <p className='text-xs'>{props.latestMessage}</p>
+      <p className='text-xs overflow-ellipsis overflow-hidden'>{props.latestMessage}</p>
   </div>)
 }
 
@@ -70,17 +84,14 @@ export default function Chat({ params }: { params: { username: string } }) {
 
   useEffect(() => {
     if (prevMessagesLengthRef.current < allMessages.length) {
-      // Only scroll if new messages were added
       messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
     }
-
-    // Update the previous messages length
     prevMessagesLengthRef.current = allMessages.length;
   }, [allMessages]);
 
   return (
   <main className="flex min-h-screen bg-white">
-    <div className="bg-lime-500">
+    <div className="bg-lime-500 max-h-screen">
       <div className="w-1/4 p-10">
 
   <div className="flex">
@@ -130,7 +141,7 @@ export default function Chat({ params }: { params: { username: string } }) {
               <svg className="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
             </button>
           </div>
-          <UserData setContact={setContact}/>
+          <UserData setContact={setContact} username={username}/>
         </div>
       </div>
     </div>
@@ -141,13 +152,16 @@ export default function Chat({ params }: { params: { username: string } }) {
   className="bg-lime-700 w-fit h-fit ml-3 text-white flex items-center justify-center rounded-full hover:bg-lime-600"
   data-hs-overlay="#new">
 <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" className="bi bi-pencil" viewBox="0 0 16 16"> <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/> </svg>
+<p>New Message</p>
 </button>
 
 </div>
 
+<div className="flex-grow max-h-screen">
 {allContacts.map((contacter, index) => (
   <button key={index} onClick={() => setContact(contacter.contactName)}><Contact key={index} latestMessage={contacter.latestMessage} contact={contacter.contactName} /></button>
 ))}
+</div>
 
 </div>
 </div>

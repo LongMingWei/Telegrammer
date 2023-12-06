@@ -9,7 +9,7 @@ function Users(props) {
     </div>)
   }
 
-export default function UserData({ setContact }) {
+export default function UserData({ setContact, username }) {
     const [allUsers, setAllUsers] = useState<{ name: string }[]>([]);;
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -20,7 +20,8 @@ export default function UserData({ setContact }) {
             else {
                 const users = await getUsers();
                 const filteredUsers = users.filter((user) =>
-                user.name.toLowerCase().startsWith(searchQuery.toLowerCase())
+                user.name.toLowerCase().startsWith(searchQuery.toLowerCase()) && 
+                user.name.toLowerCase() !== username.toLowerCase()
                 );
                 setAllUsers(filteredUsers);
             }
