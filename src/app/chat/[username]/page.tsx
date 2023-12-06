@@ -5,7 +5,7 @@ import { signOut } from '../../../../auth';
 import { useRouter } from 'next/navigation';
 import Change from '@/components/change'
 import React, { useState, useEffect, useRef } from 'react';
-import { sendMessage, getMessages, getContacts } from '@/components/data'
+import { sendMessage, getMessages, getContacts, deleteContact } from '@/components/data'
 import UserData from '@/components/users'
 import clsx from 'clsx';
 
@@ -19,7 +19,7 @@ function SpeechBubble(props) {
         'relative p-4 w-72 mt-4 rounded-lg break-words',
         {
           'bg-lime-600 text-white mr-auto': isReceived,
-          'bg-green-500 text-white ml-auto': isSent,
+          'bg-green-500 text-white ml-auto mr-2': isSent,
         }
       )}
     >
@@ -27,12 +27,12 @@ function SpeechBubble(props) {
       <p className='text-xs'>{props.time}</p>
     </div>
   );
-}
+}  
 
 function Contact(props) {
   return (<div className='relative p-4 w-80 mx-auto mb-2 border border-black bg-lime-700 hover:bg-lime-600 text-white rounded-lg text-left'>
       <h1 className='font-bold'>{props.contact}</h1>
-      <p className='text-xs overflow-ellipsis overflow-hidden'>{props.latestMessage}</p>
+      <p className='text-xs overflow-ellipsis overflow-hidden'>{props.latestMessage}</p> 
   </div>)
 }
 
@@ -45,6 +45,8 @@ export default function Chat({ params }: { params: { username: string } }) {
   const [currentContact, setCurrentContact] = useState('');
   const messagesContainerRef = useRef(null);
   const prevMessagesLengthRef = useRef(0);
+
+  
   
   async function Send() {
     if (message != "" && contact != "") {
@@ -159,8 +161,14 @@ export default function Chat({ params }: { params: { username: string } }) {
 
 <div className="flex-grow max-h-screen">
 {allContacts.map((contacter, index) => (
+  <div className='flex'>
   <button key={index} onClick={() => setContact(contacter.contactName)}><Contact key={index} latestMessage={contacter.latestMessage} contact={contacter.contactName} /></button>
+  <button className='ml-5 mt-auto mb-auto' onClick={() => {deleteContact(username, contacter.contactName)}}><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0,0,256,256">
+<g fill="#ffffff" fill-rule="nonzero" stroke="none" strokeWidth="1" strokeLinecap="butt" strokeLinejoin="miter"><g transform="scale(8.53333,8.53333)"><path d="M13,3c-0.26757,-0.00363 -0.52543,0.10012 -0.71593,0.28805c-0.1905,0.18793 -0.29774,0.44436 -0.29774,0.71195h-5.98633c-0.36064,-0.0051 -0.69608,0.18438 -0.87789,0.49587c-0.18181,0.3115 -0.18181,0.69676 0,1.00825c0.18181,0.3115 0.51725,0.50097 0.87789,0.49587h18c0.36064,0.0051 0.69608,-0.18438 0.87789,-0.49587c0.18181,-0.3115 0.18181,-0.69676 0,-1.00825c-0.18181,-0.3115 -0.51725,-0.50097 -0.87789,-0.49587h-5.98633c0,-0.26759 -0.10724,-0.52403 -0.29774,-0.71195c-0.1905,-0.18793 -0.44836,-0.29168 -0.71593,-0.28805zM6,8v16c0,1.105 0.895,2 2,2h14c1.105,0 2,-0.895 2,-2v-16z"></path></g></g>
+</svg></button>
+  </div>
 ))}
+
 </div>
 
 </div>

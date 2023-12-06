@@ -36,7 +36,7 @@ export default function UserData({ setContact, username }) {
           <h2 className="text-3xl font-bold mb-6 text-green-600 text-center">New Message</h2>
 
           {checked && (
-            <div className='text-black text-center text-green-600'>Chat created, close to start chatting!</div>
+            <div className='text-black text-center text-green-600'>Chat created, close this window to start chatting!</div>
           )}
 
         <div className="flex justify-center">

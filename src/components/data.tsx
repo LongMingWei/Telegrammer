@@ -146,6 +146,22 @@ export async function addUser(name: string, password: string) {
     return allUsers;
   }
 
+  export async function deleteContact(username: string, contact: string) {
+    noStore();
+    const db = await connectToDatabase();
+    const users = db.collection('users');
+
+    const result = await users.updateOne(
+      { name: username },
+      { $unset: { [`chat.${contact}`]: '' } }
+    );
+  }
+
+  export async function deleteMessage(contact: string) {
+    
+  }
+
+
   export async function authenticate(
     prevState: string | undefined,
     formData: FormData,
