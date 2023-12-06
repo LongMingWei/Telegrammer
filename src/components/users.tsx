@@ -29,7 +29,7 @@ export default function UserData({ setContact, username }) {
           };
 
         fetchUserData();
-      }, [searchQuery]);
+      }, [username, searchQuery]);
 
       return (
         <div className="pb-10">
