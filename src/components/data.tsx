@@ -134,7 +134,6 @@ export async function addUser(name: string, password: string) {
       ];
 
     const result = await users.aggregate(pipeline).toArray();
-    console.log(result)
     return result;
   }
 

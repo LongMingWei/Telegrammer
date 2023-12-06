@@ -15,7 +15,8 @@ export default function UserData({ setContact }) {
 
     useEffect(() => {
         const fetchUserData = async () => {
-            if (searchQuery === '') setAllUsers([]);
+            // if (searchQuery === '') setAllUsers([]);
+            if (false) setAllUsers([]);
             else {
                 const users = await getUsers();
                 const filteredUsers = users.filter((user) =>
@@ -30,12 +31,12 @@ export default function UserData({ setContact }) {
 
       return (
         <div className="pb-10">
-          <h2 className="text-3xl font-bold mb-6 text-green-600 text-center">Select User</h2>
+          <h2 className="text-3xl font-bold mb-6 text-green-600 text-center">New Message</h2>
 
         <div className="flex justify-center">
           <input
             type="text"
-            placeholder="Type to start searching"
+            placeholder="Search for user"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="p-2 border rounded-md mb-4 text-black block"
