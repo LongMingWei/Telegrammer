@@ -3,6 +3,7 @@
 - An independent project to test and showcase my understanding of technical skills that are essential in software/web development
 ## How to use
 - Create 2 new accounts and open in 2 separate browsers (so that you can fully utilize the app's messaging features)
+- Otherwise, you can use these 2 test accounts (Username: Test, Password: 123456), (Username: Test1, Password: abc123), but browsers must still be separate
 - Select a user to chat with (the other account you created), just like in Telegram
 - Sometimes loading of content or logging in might be a bit slow, so just be patient
 - NOTE: You might not be able to log out when pressing the sign out button due to some deployment issues in Vercel, simply refresh the webpage and you will be logged out
