@@ -1,36 +1,20 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## About
+- A messaging app simulator
+- An independent project to test and showcase my understanding of technical skills that are essential in software/web development
+## How to use
+- Use test accounts..., if not you can create 2 new accounts yourself and test its features
+- If you created new accounts, go to new messages and select a user to chat with, just like in Telegram
+- Have fun!
+- NOTE: You might not be able to log out when pressing the sign out button due to some deployment issues in Vercel, simply refresh the webpage and you will be logged out
+## Features
+- A login page with authentication processes (trying to abuse the URL (appending /chat/[username] to the URL) to login illegally will send you back to the page you are currently on)
+- Create a new account page
+- New messages button to create new chats with users you have not connected with before
+- Chat deletion
+- Change passwords
+## Skills Utilized
+Next.js, React.js, MongoDB, Typescript, Javascript, Tailwind CSS, UI/UX 
 
-## Getting Started
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
