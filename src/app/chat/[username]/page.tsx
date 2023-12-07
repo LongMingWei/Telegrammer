@@ -177,7 +177,7 @@ export default function Chat({ params }: { params: { username: string } }) {
 
 <div className="w-3/4 p-4 flex flex-col h-full min-h-screen bg-white overflow-hidden max-h-screen">
 
-  <h2 className="font-bold text-lime-500 text-2xl text-center">{contact === "" ? "Select a user to start chatting!":contact}</h2>
+  <h2 className="font-bold text-lime-500 text-2xl text-center">{contact === "" ? "Select a user from the chat list or new messages to start chatting!":contact}</h2>
  
   <div className="flex-grow overflow-y-auto max-h-screen" ref={messagesContainerRef}>
     {allMessages.map((msg, index) => (
