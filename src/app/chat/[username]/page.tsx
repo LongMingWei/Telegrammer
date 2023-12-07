@@ -32,7 +32,7 @@ function SpeechBubble(props) {
 function Contact(props) {
   return (<div className='relative p-4 w-80 mx-auto mb-2 border border-black bg-lime-700 hover:bg-lime-600 text-white rounded-lg text-left'>
       <h1 className='font-bold'>{props.contact}</h1>
-      <p className='text-xs overflow-ellipsis overflow-hidden'>{props.latestMessage}</p> 
+      <p className='text-xs truncate'>{props.latestMessage}</p> 
   </div>)
 }
 
